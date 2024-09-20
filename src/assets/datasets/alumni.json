@@ -1,0 +1,38 @@
+[
+  {
+    "id": 0,
+    "label": "Example Alumni 1",
+    "lat": 55.92057,
+    "lng": -3.285707,
+    "focus": { "lat": 45.92057, "lng": -3.285707, "altitude": 1.25 },
+    "focusTime": 15000,
+    "transitionTime": 5000,
+    "color": "#c07ec0ff",
+    "activeColor": "#00ff00ff",
+    "active": true
+  },
+  {
+    "id": 1,
+    "label": "Example Alumni 2",
+    "lat": 59.932548,
+    "lng": 10.696164,
+    "focus": { "lat": 49.932548, "lng": 10.696164, "altitude": 1.25 },
+    "focusTime": 15000,
+    "transitionTime": 5000,
+    "color": "#c07ec0ff",
+    "activeColor": "#00ff00ff",
+    "active": false
+  },
+  {
+    "id": 2,
+    "label": "Example Alumni 3",
+    "lat": -37.820015,
+    "lng": 145.035078,
+    "focus": { "lat": -27.820015, "lng": 145.035078, "altitude": 1.25 },
+    "focusTime": 15000,
+    "transitionTime": 5000,
+    "color": "#c07ec0ff",
+    "activeColor": "#00ff00ff",
+    "active": false
+  }
+]

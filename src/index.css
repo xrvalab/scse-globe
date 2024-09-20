@@ -1,0 +1,8 @@
+body {
+  height: 100%;
+  margin: 0;
+  color: white;
+  /* background: linear-gradient(to right, #9688da, #ff92db); */
+  /* background: linear-gradient(to right, #110e1b, #35142a); */
+  font-family: "Roboto", sans-serif;
+}

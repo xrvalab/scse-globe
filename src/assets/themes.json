@@ -1,0 +1,10 @@
+{
+  "light": {
+    "name": "light",
+    "class": "theme-light"
+  },
+  "dark": {
+    "name": "dark",
+    "class": "theme-dark"
+  }
+}
