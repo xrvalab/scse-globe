@@ -67,7 +67,7 @@ const InformationPane = styled.section`
   left: 50px;
   width: 600px;
   height: calc(100% - 300px);
-  border-radius: 25px;
+  border-radius: 12px;
   backdrop-filter: blur(10px);
   background: linear-gradient(
     to bottom left,
@@ -80,9 +80,15 @@ const InformationPane = styled.section`
   h2 {
     margin: 0px;
     text-transform: uppercase;
-    font-size: 3em;
+    font-size: 5em;
+    line-height: 0.9em;
     font-weight: 900;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  p {
+    font-size: 1.25em;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -214,6 +220,19 @@ function App() {
       <Interface>
         <InformationPane>
           <h2>Information Pane Title</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+            lorem mauris, facilisis ut varius et, rhoncus in felis. Curabitur
+            justo metus, euismod blandit nibh vitae, hendrerit commodo nisi.
+            Phasellus facilisis eros eget lacus aliquam scelerisque. Maecenas
+            pulvinar ex ac urna dignissim, et vulputate urna tincidunt.
+            Pellentesque rutrum, ipsum id ornare rhoncus, risus leo vehicula
+            leo, vitae vulputate sem libero et lacus. Proin sodales imperdiet
+            quam, hendrerit tristique ligula consequat quis. Morbi scelerisque
+            risus eget semper fringilla. Sed accumsan eget nisi a gravida. Nulla
+            facilisi. Donec est lorem, vestibulum convallis urna ac, mattis
+            rhoncus quam. Ut vel lacus nec sapien scelerisque porta id at dolor.
+          </p>
         </InformationPane>
       </Interface>
       <Footer>
