@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { GlobeMethods } from "react-globe.gl";
 import Globe from "./components/Globe";
 import styled, { css } from "styled-components";
+
+// Three
 // import * as THREE from "three";
 
 // Datasets
@@ -67,14 +69,14 @@ const InformationPane = styled.section`
   left: 50px;
   width: 600px;
   height: calc(100% - 300px);
-  border-radius: 12px;
+  border-radius: 8px;
   backdrop-filter: blur(10px);
   background: linear-gradient(
     to bottom left,
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.1)
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.025)
   );
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.025);
+  box-shadow: 0px 0px 16px rgba(45, 45, 45, 0.05);
   padding: 40px;
 
   h2 {
@@ -118,28 +120,61 @@ const Footer = styled.footer`
   }
 `;
 
+interface IData {
+  id: number;
+  label: string;
+  lat: number;
+  lng: number;
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+  focus: {
+    lat: number;
+    lng: number;
+    altitude: number;
+  };
+  focusTime: number;
+  transitionTime: number;
+  size: number;
+  color: string;
+  activeColor: string;
+}
+
 function App() {
   const theme = true; // FIXME: Currently a compile-time variable, true = light
-  // const [markers] = useState(markersPath);
   // const [alumni] = useState(alumniPath);
   // const [markerIndex, setMarkerIndex] = useState(0);
+  const [alumni] = useState(alumniPath);
+  const [markers] = useState(markersPath);
   const [alumniIndex, setAlumniIndex] = useState(0);
   const [backgroundColor] = useState("rgba(0,0,0,0)");
   const [atmosphereColor] = useState(theme ? 0xffeeff : 0x9a729b);
   const [globeColor] = useState(theme ? 0xffcbff : 0x3a173c);
   const [hexPolygonColor] = useState(0xc07ec0);
+  const [pointsData, setPointsData] = useState<IData[]>([]);
+  const [arcsData, setArcsData] = useState<IData[]>([]);
 
   // Hex map
   const hexMap = hexMapPath.features;
 
-  // Markers
-  const markers = markersPath;
-
-  // Alumni
-  const alumni = alumniPath;
+  // Points
+  const alumniPointActiveColor = "#3dd2ffb8";
+  const alumniPointColor = "#0e9fcbdc";
 
   // Globe Ref
   const globeRef = useRef<GlobeMethods>();
+
+  const markerSvg = `<svg viewBox="-4 0 36 36">
+    <path fill="currentColor" d="M14,0 C21.732,0 28,5.641 28,12.6 C28,23.963 14,36 14,36 C14,36 0,24.064 0,12.6 C0,5.641 6.268,0 14,0 Z"></path>
+    <circle fill="black" cx="14" cy="14" r="7"></circle>
+  </svg>`;
+
+  useEffect(() => {
+    // Data
+    setPointsData([...alumni, ...markers].map((d) => Object.assign({}, d)));
+    setArcsData(alumni.map((d) => Object.assign({}, d)));
+  }, []);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -150,7 +185,7 @@ function App() {
         body.style.background = "linear-gradient(to right, #110e1b, #35142a)";
       }
     }
-  }, []);
+  }, [theme]);
 
   // Cycle through alumni
   useEffect(() => {
@@ -159,21 +194,24 @@ function App() {
       const nextAlumniIndex =
         alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1;
 
-      // Toggle active
-      alumni[alumniIndex].active = false;
-      alumni[nextAlumniIndex].active = true;
-
       // Change point of view
       globeRef.current!.pointOfView(
         alumni[nextAlumniIndex].focus,
         alumni[nextAlumniIndex].transitionTime
       );
-
       // Update marker index
       setAlumniIndex(alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1);
-    }, alumni[alumniIndex].focusTime);
+      // }, alumni[alumniIndex].focusTime); // FIXME: <--
+    }, 5000);
     return () => clearInterval(interval);
   }, [alumniIndex, alumni]);
+
+  // Accessors
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pointColor = (d: any) =>
+    alumniIndex === d.id ? alumniPointActiveColor : alumniPointColor;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.3 : 0.05);
 
   const globeProps = {
     // React
@@ -186,7 +224,7 @@ function App() {
 
     // Controls
     autoRotate: true,
-    autoRotateSpeed: 0.25,
+    autoRotateSpeed: 0.15,
 
     // Container Layout
     width: 2100,
@@ -205,14 +243,31 @@ function App() {
     hexPolygonColor,
 
     // Points Layer
-    pointsData: [...markers, ...alumni],
+    pointsData,
     pointResolution: 6,
     pointRadius: 0.2,
-    // pointColor: (d: any) => (d.active ? "#ffe5b9aa" : d.color),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    pointColor: (d: any) => (d.active ? "#13c8ffb9" : "#0e9fcbdc"), // d.color
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    pointAltitude: (d: any) => (d.active ? 0.3 : 0.05),
+    pointColor,
+    pointAltitude,
+
+    // Arcs Layer
+    arcsData,
+    arcColor: () => "#35142a",
+    arcStroke: 0.2,
+
+    // // HTML Layer
+    // htmlElementsData: alumni,
+    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // htmlElement: (d: any) => {
+    //   const el = document.createElement("div");
+    //   el.innerHTML = markerSvg;
+    //   el.style.color = d.color;
+    //   el.style.width = `${d.size}px`;
+
+    //   // el.style['pointer-events'] = 'auto';
+    //   el.style.cursor = "pointer";
+    //   el.onclick = () => console.info(d);
+    //   return el;
+    // },
   };
 
   return (
