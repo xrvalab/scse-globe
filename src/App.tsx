@@ -1,180 +1,115 @@
 import { useEffect, useRef, useState } from "react";
 import { GlobeMethods } from "react-globe.gl";
-import Globe from "./components/Globe";
-import styled, { css } from "styled-components";
+
+// Components
+import { Globe, Interface } from "./components";
 
 // Three
-// import * as THREE from "three";
+import * as THREE from "three";
+
+// Types
+import { IData, IRingData } from "./types";
 
 // Datasets
 import hexMapPath from "./assets/datasets/ne_110m_admin_0_countries.json";
 import markersPath from "./assets/datasets/static-markers.json";
 import alumniPath from "./assets/datasets/alumni.json";
 
-// Images
-import buWhite from "./assets/img/bu-white.png";
+// Utils
+import { getDistanceFromLatLngInKm } from "./utils";
 
-const Button = styled.button(() => css``);
+// Globe display scale-up
+const globeScaleUp = 1.39;
 
-const StyledButtonGroup = styled.div``;
+// Default altitude
+const defaultAltitude = 1;
 
-const ButtonGroup = function ({
-  globeRef,
-}: {
-  globeRef: React.MutableRefObject<GlobeMethods | undefined>;
-}) {
-  return (
-    <StyledButtonGroup>
-      <Button
-        onClick={() => {
-          globeRef.current!.pointOfView(
-            { lat: 20, lng: 0, altitude: 1.75 },
-            5000
-          );
-        }}
-      >
-        Reset
-      </Button>
-      <Button
-        onClick={() => {
-          globeRef.current!.pointOfView(
-            { lat: 53, lng: -4, altitude: 0.5 },
-            5000
-          );
-        }}
-      >
-        Bangor
-      </Button>
-      <Button
-        onClick={() => {
-          globeRef.current!.controls().autoRotate =
-            !globeRef.current!.controls().autoRotate;
-        }}
-      >
-        Rotate
-      </Button>
-    </StyledButtonGroup>
-  );
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const arcDashAnimateTime = (d: any) =>
+  getDistanceFromLatLngInKm(d.startLat, d.startLng, d.endLat, d.endLng);
+const arcDashInitialGap = 0;
 
-const Interface = styled.main`
-  position: absolute;
-  z-index: 1;
-  height: 100%;
-`;
-
-const InformationPane = styled.section`
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  width: 600px;
-  height: calc(100% - 300px);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  background: linear-gradient(
-    to bottom left,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.025)
-  );
-  box-shadow: 0px 0px 16px rgba(45, 45, 45, 0.05);
-  padding: 40px;
-
-  h2 {
-    margin: 0px;
-    text-transform: uppercase;
-    font-size: 5em;
-    line-height: 0.9em;
-    font-weight: 900;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  p {
-    font-size: 1.25em;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  position: absolute;
-  z-index: 2;
-  bottom: 50px;
-  left: 50px;
-
-  & h1 {
-    font-weight: 900;
-    margin: 0;
-    text-transform: uppercase;
-    font-size: 1.5em;
-    padding-left: 20px;
-    border-left: solid 1px white;
-  }
-
-  .bangor-university-logo {
-    width: 200px;
-    height: 57px;
-    margin-right: 20px;
-    background-size: 200px;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const markerHTML = (d: any) =>
+  `<div style='
+    width: 30px;
+    height: 30px;
+    border-radius: ${d.id === -1 ? "0%" : "50%"};
+    background-image:
+    url(/avatars/${d.avatar});
+    transform: translate(-4px, -4px);
     background-repeat: no-repeat;
-    background-image: url(${buWhite});
-  }
-`;
-
-interface IData {
-  id: number;
-  label: string;
-  lat: number;
-  lng: number;
-  startLat: number;
-  startLng: number;
-  endLat: number;
-  endLng: number;
-  focus: {
-    lat: number;
-    lng: number;
-    altitude: number;
-  };
-  focusTime: number;
-  transitionTime: number;
-  size: number;
-  color: string;
-  activeColor: string;
-}
+    background-size: 30px;
+    animation: fadein ${d.id === -1 ? "0s" : "1s"} ease-in-out;
+    animation-iteration-count: 1;
+    animation-delay: ${d.id === -1 ? "0s" : "1s"};
+    opacity: 0;
+    animation-fill-mode: forwards;'
+  ></div>`;
 
 function App() {
-  const theme = true; // FIXME: Currently a compile-time variable, true = light
-  // const [alumni] = useState(alumniPath);
+  const [globeReady, setGlobeReady] = useState(false);
+  const [theme, setTheme] = useState(true); // true = light, false = dark
+  const [altitude, setAltitude] = useState(defaultAltitude);
+  const [autoRotate, setAutoRotate] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(true);
   // const [markerIndex, setMarkerIndex] = useState(0);
   const [alumni] = useState(alumniPath);
   const [markers] = useState(markersPath);
   const [alumniIndex, setAlumniIndex] = useState(0);
   const [backgroundColor] = useState("rgba(0,0,0,0)");
-  const [atmosphereColor] = useState(theme ? 0xffeeff : 0x9a729b);
-  const [globeColor] = useState(theme ? 0xffcbff : 0x3a173c);
-  const [hexPolygonColor] = useState(0xc07ec0);
   const [pointsData, setPointsData] = useState<IData[]>([]);
   const [arcsData, setArcsData] = useState<IData[]>([]);
+  const [htmlElementsData, setHtmlElementsData] = useState<IData[]>([]);
+  const [ringsData, setRingsData] = useState<IRingData[]>([
+    { lat: alumni[0].lat, lng: alumni[0].lng },
+  ]);
 
   // Hex map
   const hexMap = hexMapPath.features;
 
   // Points
-  const alumniPointActiveColor = "#3dd2ffb8";
-  const alumniPointColor = "#0e9fcbdc";
+  const alumniPointActiveColor = "#ff80ddcc";
+  const alumniPointColor = "#00b3ff7e";
 
   // Globe Ref
   const globeRef = useRef<GlobeMethods>();
 
-  const markerSvg = `<svg viewBox="-4 0 36 36">
-    <path fill="currentColor" d="M14,0 C21.732,0 28,5.641 28,12.6 C28,23.963 14,36 14,36 C14,36 0,24.064 0,12.6 C0,5.641 6.268,0 14,0 Z"></path>
-    <circle fill="black" cx="14" cy="14" r="7"></circle>
-  </svg>`;
+  // Accessors
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pointColor = (d: any) =>
+    d.id === -1
+      ? theme
+        ? "#954a89"
+        : "#ffd0f6"
+      : alumniIndex === d.id
+      ? alumniPointActiveColor
+      : alumniPointColor;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const arcColor = (d: any) =>
+    alumniIndex === d.id
+      ? theme
+        ? ["#954a89", "#ff80dd", "#ff80dd"]
+        : ["#ffd0f6", "#ff80dd", "#ff80dd"]
+      : theme
+      ? ["#954a89", "#0083bb", "#0083bb"]
+      : ["#ffd0f6", "#0083bb", "#0083bb"];
+  const ringColor = () => (theme ? "#954a89" : "#ff80dd");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.2 : 0.05);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const htmlAltitude = (d: any) => (alumniIndex === d.id ? 0.25 : 0.075);
+  const hexPolygonMargin = () => (theme ? 0.7 : 0.8);
+  const hexPolygonColor = () => (theme ? 0xc07ec0 : 0x803e80);
 
   useEffect(() => {
     // Data
     setPointsData([...alumni, ...markers].map((d) => Object.assign({}, d)));
     setArcsData(alumni.map((d) => Object.assign({}, d)));
-  }, []);
+    setHtmlElementsData(
+      [...alumni, ...markers].map((d) => Object.assign({}, d))
+    );
+  }, [alumni, markers]);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -182,56 +117,67 @@ function App() {
       if (theme) {
         body.style.background = "linear-gradient(to right, #9688da, #ff92db)";
       } else {
-        body.style.background = "linear-gradient(to right, #110e1b, #35142a)";
+        // body.style.background = "linear-gradient(to right, #110e1b, #35142a)";
+        body.style.background = "linear-gradient(to right, #0f0a26, #180a13)";
       }
     }
   }, [theme]);
 
+  useEffect(() => {
+    if (globeReady) {
+      globeRef.current!.scene().children[3].children[0].children[0].material =
+        new THREE.MeshPhongMaterial({
+          color: theme ? 0xffcbff : 0x1b0220,
+        });
+    }
+  }, [globeReady, theme]);
+
   // Cycle through alumni
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Next alumni index
-      const nextAlumniIndex =
-        alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1;
+    if (autoPlay) {
+      const interval = setInterval(() => {
+        // Next alumni index
+        const nextAlumniIndex =
+          alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1;
 
-      // Change point of view
-      globeRef.current!.pointOfView(
-        alumni[nextAlumniIndex].focus,
-        alumni[nextAlumniIndex].transitionTime
-      );
-      // Update marker index
-      setAlumniIndex(alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1);
-      // }, alumni[alumniIndex].focusTime); // FIXME: <--
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [alumniIndex, alumni]);
-
-  // Accessors
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pointColor = (d: any) =>
-    alumniIndex === d.id ? alumniPointActiveColor : alumniPointColor;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.3 : 0.05);
+        // Change point of view
+        globeRef.current!.pointOfView(
+          { ...alumni[nextAlumniIndex].focus },
+          alumni[nextAlumniIndex].transitionTime
+        );
+        // Update marker index
+        setRingsData([
+          {
+            lat: alumni[nextAlumniIndex].lat,
+            lng: alumni[nextAlumniIndex].lng,
+          },
+        ]);
+        setAlumniIndex(nextAlumniIndex);
+      }, alumni[alumniIndex].focusTime);
+      return () => clearInterval(interval);
+    }
+  }, [autoPlay, alumniIndex, alumni, ringsData]);
 
   const globeProps = {
     // React
     globeRef,
 
     // Custom
-    globeColor,
+    globeColor: theme ? 0xffcbff : 0x1b0220,
+    setGlobeReady,
     transitionTime: 5000,
     initialPointOfView: alumni[alumniIndex].focus,
 
     // Controls
-    autoRotate: true,
-    autoRotateSpeed: 0.15,
+    autoRotate,
+    autoRotateSpeed: 0.2,
 
     // Container Layout
-    width: 2100,
+    width: window.innerWidth * globeScaleUp,
     backgroundColor,
 
     // Globe Layer
-    atmosphereColor,
+    atmosphereColor: theme ? 0xffeeff : 0x9a729b,
     atmosphereAltitude: 0.5,
     // onGlobeReady,
 
@@ -239,7 +185,7 @@ function App() {
     hexPolygonsData: hexMap,
     hexPolygonResolution: 3, // 4 potentially too high
     hexPolygonCurvatureResolution: 5,
-    hexPolygonMargin: 0.6,
+    hexPolygonMargin,
     hexPolygonColor,
 
     // Points Layer
@@ -251,54 +197,53 @@ function App() {
 
     // Arcs Layer
     arcsData,
-    arcColor: () => "#35142a",
-    arcStroke: 0.2,
+    arcColor,
+    arcStroke: 0.3,
+    arcDashLength: 0.5,
+    arcDashGap: 1,
+    arcDashAnimateTime,
+    arcDashInitialGap,
+
+    // Rings Layer
+    ringsData,
+    ringColor,
+    ringMaxRadius: 2.5,
+    ringPropagationSpeed: 0.75,
+    ringRepeatPeriod: 1000,
 
     // // HTML Layer
-    // htmlElementsData: alumni,
-    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // htmlElement: (d: any) => {
-    //   const el = document.createElement("div");
-    //   el.innerHTML = markerSvg;
-    //   el.style.color = d.color;
-    //   el.style.width = `${d.size}px`;
+    htmlElementsData,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    htmlElement: (d: any) => {
+      const el = document.createElement("div");
+      el.style.opacity = d.id === alumniIndex || d.id === -1 ? "1" : "0";
+      el.innerHTML = markerHTML(d);
+      el.style.color = d.color;
+      el.style.width = `${d.size}px`;
 
-    //   // el.style['pointer-events'] = 'auto';
-    //   el.style.cursor = "pointer";
-    //   el.onclick = () => console.info(d);
-    //   return el;
-    // },
+      el.style.pointerEvents = "auto";
+      el.style.cursor = "pointer";
+      el.style.userSelect = "auto";
+      el.onclick = () => console.info(d);
+      return el;
+    },
+    htmlAltitude,
+    htmlTransitionDuration: 1000,
   };
 
   return (
     <>
-      <Interface>
-        <InformationPane>
-          <h2>Information Pane Title</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            lorem mauris, facilisis ut varius et, rhoncus in felis. Curabitur
-            justo metus, euismod blandit nibh vitae, hendrerit commodo nisi.
-            Phasellus facilisis eros eget lacus aliquam scelerisque. Maecenas
-            pulvinar ex ac urna dignissim, et vulputate urna tincidunt.
-            Pellentesque rutrum, ipsum id ornare rhoncus, risus leo vehicula
-            leo, vitae vulputate sem libero et lacus. Proin sodales imperdiet
-            quam, hendrerit tristique ligula consequat quis. Morbi scelerisque
-            risus eget semper fringilla. Sed accumsan eget nisi a gravida. Nulla
-            facilisi. Donec est lorem, vestibulum convallis urna ac, mattis
-            rhoncus quam. Ut vel lacus nec sapien scelerisque porta id at dolor.
-          </p>
-        </InformationPane>
-      </Interface>
-      <Footer>
-        <div className="bangor-university-logo"></div>
-        <h1>
-          School of Computer
-          <br />
-          Science and Engineering
-        </h1>
-        <ButtonGroup globeRef={globeRef} />
-      </Footer>
+      <Interface
+        globeRef={globeRef}
+        theme={theme}
+        setTheme={setTheme}
+        autoPlay={autoPlay}
+        setAutoPlay={setAutoPlay}
+        autoRotate={autoRotate}
+        setAutoRotate={setAutoRotate}
+        altitude={altitude}
+        setAltitude={setAltitude}
+      />
       <Globe {...globeProps} />
     </>
   );

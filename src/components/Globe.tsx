@@ -10,6 +10,7 @@ interface IGlobeProps extends GlobeProps, JSX.IntrinsicAttributes {
   autoRotateSpeed: number;
   transitionTime: number;
   initialPointOfView: { lat: number; lng: number; altitude: number };
+  setGlobeReady: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Globe(props: IGlobeProps) {
@@ -29,6 +30,7 @@ function Globe(props: IGlobeProps) {
       props.globeRef.current!.controls().autoRotate = props.autoRotate;
       props.globeRef.current!.controls().autoRotateSpeed =
         props.autoRotateSpeed;
+      props.setGlobeReady(true);
     }, 0);
   }
 
