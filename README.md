@@ -4,6 +4,16 @@ Interactive Data Globe for Bangor University School of Computer Science and Engi
 
 Built with [Vite](https://vitejs.dev), [React](https://react.dev) and [TypeScript](https://typescriptlang.org)
 
+## Contents
+
+- [Globe Data](#globe-data)
+- [API Keys](#api-keys)
+- [Credits](#credits)
+
+## Globe Data
+
+Globe profile data should be included in `src/datasets` and `public/avatars`, format TBC.
+
 ## API Keys
 
 API keys are required for the following services:
