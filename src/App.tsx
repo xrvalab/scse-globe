@@ -1,26 +1,28 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { GlobeMethods } from "react-globe.gl";
 
 // Components
-import { Globe, Interface } from "./components";
+import { Globe, Interface, Loader } from "./components";
 
 // Three
 import * as THREE from "three";
 
 // Types
-import { IData, IRingData } from "./types";
+import { IAlumniData, IData, IRingData, IOrganisations } from "./types";
 
 // Datasets
-import hexMapPath from "./assets/geojson/ne_110m_admin_0_countries.json";
-import markersPath from "./datasets/static-markers.json";
-import alumniPath from "./datasets/alumni.json";
+import {
+  alumniPath,
+  organisationsPath,
+  markersPath,
+  hexMapPath,
+} from "./datasets";
 
 // Utils
 import { getDistanceFromLatLngInKm } from "./utils";
 
-// Globe display scale-up
-const globeScaleUp = 1.55;
-// const globeScaleUp = 1.39;
+// Globe Scale Multiplier
+const globeScaleUp = 1.49;
 
 // Default altitude
 const defaultAltitude = 1;
@@ -31,25 +33,57 @@ const defaultAvatarSize = 30;
 // Origin
 const origin = markersPath[0];
 
+// Colours
+const veryLightPink = "#ffeeff";
+const lightPink = "#ffd0f6";
+const pink = "#ff80dd";
+const midPink = "#9a729b";
+const darkPink = "#954a89";
+const darkPurple = "#531849";
+const midBlue = "#0083bb";
+const pinkWithOpacity = "#ff80ddcc";
+const blueWithOpacity = "#00b3ff7e";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const arcDashAnimateTime = (d: any) =>
   getDistanceFromLatLngInKm(origin.lat, origin.lng, d.lat, d.lng);
 const arcDashInitialGap = 0;
 
 function App() {
+  // Query params
+  const query = useMemo(() => new URLSearchParams(window.location.search), []);
+  const q = {
+    // If set, disable zoom and context menu
+    display: useMemo(() => query.get("display"), [query]),
+    // 0: Light theme, 1: Dark theme
+    theme: useMemo(() => query.get("theme"), [query]),
+    // Hex resolution: 3 | 4
+    hex: useMemo(() => query.get("hex"), [query]),
+    // If set, disable the title screen
+    notitle: useMemo(() => query.get("notitle"), [query]),
+  };
+
+  // State
   const [globeReady, setGlobeReady] = useState(false);
   const [globeWidth, setGlobeWidth] = useState(
     window.innerWidth * globeScaleUp
   );
   const [globeHeight, setGlobeHeight] = useState(window.innerHeight);
-  const [theme, setTheme] = useState(true); // true = light, false = dark
+  const [theme, setTheme] = useState(
+    q.theme ? (q.theme === "1" ? false : true) : true
+  );
   const [altitude, setAltitude] = useState(defaultAltitude);
   const [autoRotate, setAutoRotate] = useState(true);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [shuffleMode, setShuffleMode] = useState(false);
+  const [showcaseMode, setShowcaseMode] = useState(false);
   const [globeOnlyMode, setGlobeOnlyMode] = useState(false);
   // const [markerIndex, setMarkerIndex] = useState(0);
-  const [alumni] = useState(alumniPath.map((el, id) => ({ ...el, id })));
+  const [alumni] = useState<IAlumniData[]>(
+    alumniPath.map((el, id) => ({ ...el, id }))
+  );
   const [markers] = useState(markersPath);
+  const [organisations] = useState<IOrganisations>(organisationsPath);
   const [alumniIndex, setAlumniIndex] = useState(0);
   const [backgroundColor] = useState("rgba(0,0,0,0)");
   const [pointsData, setPointsData] = useState<IData[]>([]);
@@ -58,13 +92,14 @@ function App() {
   const [ringsData, setRingsData] = useState<IRingData[]>([
     { lat: alumni[0].lat, lng: alumni[0].lng },
   ]);
-
+  const [showAboutPanel, setShowAboutPanel] = useState(false);
+  const [showInformationPanel, setShowInformationPanel] = useState(true);
   // Hex map
   const hexMap = hexMapPath.features;
 
   // Points
-  const alumniPointActiveColor = "#ff80ddcc";
-  const alumniPointColor = "#00b3ff7e";
+  const alumniPointActiveColor = pinkWithOpacity;
+  const alumniPointColor = blueWithOpacity;
 
   // Globe Ref
   const globeRef = useRef<GlobeMethods>();
@@ -74,8 +109,8 @@ function App() {
   const pointColor = (d: any) =>
     d.id === -1
       ? theme
-        ? "#954a89"
-        : "#ffd0f6"
+        ? darkPink
+        : lightPink
       : alumniIndex === d.id
       ? alumniPointActiveColor
       : alumniPointColor;
@@ -83,57 +118,58 @@ function App() {
   const arcColor = (d: any) =>
     alumniIndex === d.id
       ? theme
-        ? ["#954a89", "#ff80dd", "#ff80dd"]
-        : ["#ffd0f6", "#ff80dd", "#ff80dd"]
+        ? [darkPink, pink, pink]
+        : [lightPink, pink, pink]
       : theme
-      ? ["#954a89", "#0083bb", "#0083bb"]
-      : ["#ffd0f6", "#0083bb", "#0083bb"];
-  const ringColor = () => (theme ? "#954a89" : "#ff80dd");
+      ? [darkPink, midBlue, midBlue]
+      : [lightPink, midBlue, midBlue];
+  const ringColor = () => (theme ? darkPink : pink);
   // const pointAltitude = (d: any) => 0.1;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.2 : 0.05);
+  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.1 : 0.05);
   // const htmlAltitude = (d: any) => 0.15;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const htmlAltitude = (d: any) => (alumniIndex === d.id ? 0.2 : 0.05);
-  const hexPolygonMargin = () => (theme ? 0.7 : 0.7);
+  const htmlAltitude = (d: any) => (alumniIndex === d.id ? 0.1 : 0.05);
+  const hexPolygonMargin = () => (theme ? 0.6 : 0.7);
   const hexPolygonColor = () => (theme ? 0xc07ec0 : 0x803e80);
+
+  // FIXME: Use this as the single reference
+  const globeEl = Array.from(
+    document.querySelectorAll(
+      ".scene-container"
+    ) as unknown as HTMLCollectionOf<HTMLElement>
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const htmlElement = (d: any) => {
     const tooltip = document.createElement("div");
-    // tooltip.style.color = theme ? "white" : "#ffd0f6";
-    tooltip.style.color = theme ? "#531849" : "#ffd0f6";
-
+    tooltip.style.color = theme ? darkPurple : lightPink;
     tooltip.classList.add("marker-tooltip");
     tooltip.innerHTML = `${d.name}<br/><span class="location">${d.city}, ${d.country}</span>`;
-    const el = document.createElement("div");
-    el.appendChild(tooltip);
-    el.classList.add("marker");
-    el.style.width = `${
-      d.id === alumniIndex || d.id === -1
-        ? defaultAvatarSize * 1.5
-        : defaultAvatarSize
-    }px`;
-    el.style.height = `${
-      d.id === alumniIndex || d.id === -1
-        ? defaultAvatarSize * 1.5
-        : defaultAvatarSize
-    }px`;
+
+    const avatarLarge = defaultAvatarSize / 10;
+    const avatarSmall = defaultAvatarSize / 12;
+
+    const avatarSize = `${
+      d.id === alumniIndex || d.id === -1 ? avatarLarge : avatarSmall
+    }vw`;
+
+    const avatarEl = document.createElement("div");
+    avatarEl.appendChild(tooltip);
+    avatarEl.classList.add("marker");
+    avatarEl.style.width = avatarSize;
+    avatarEl.style.height = avatarSize;
     // el.style.opacity = d.id === alumniIndex || d.id === -1 ? "1" : "0";
-    el.style.opacity = "1";
-    el.style.borderRadius = d.id === -1 ? "0%" : "50%";
-    el.style.backgroundImage = `url(/avatars/${d.avatar})`;
-    el.style.backgroundRepeat = "no-repeat";
-    el.style.border = d.id === -1 ? "none" : "solid 3px white";
-    el.style.backgroundSize = `${
-      d.id === alumniIndex || d.id === -1
-        ? defaultAvatarSize * 1.5
-        : defaultAvatarSize
-    }px`;
+    avatarEl.style.opacity = "1";
+    avatarEl.style.borderRadius = d.id === -1 ? "0%" : "50%";
+    avatarEl.style.backgroundImage = `url(avatars/${d.avatar})`;
+    avatarEl.style.backgroundRepeat = "no-repeat";
+    avatarEl.style.border = d.id === -1 ? "none" : "solid 0.15vw white";
+    avatarEl.style.backgroundSize = avatarSize;
     // el.innerHTML = markerHTML(d, alumniIndex);
-    el.style.pointerEvents = "auto";
-    el.style.cursor = "pointer";
-    el.style.userSelect = "auto";
+    avatarEl.style.pointerEvents = "auto";
+    avatarEl.style.cursor = "pointer";
+    avatarEl.style.userSelect = "auto";
     // el.style.animation = `fadein ${
     //   d.id === alumniIndex || d.id === -1 ? "0s" : "1s"
     // } ease-in-out`;
@@ -142,40 +178,65 @@ function App() {
     //   d.id === alumniIndex || d.id === -1 ? "0s" : "1s"
     // }`;
     // el.style.animationFillMode = "forwards";
-    el.onclick = () => setAlumniIndex(d.id);
-    el.onmouseover = () => {
+
+    // Click handler
+    avatarEl.onclick = () => {
+      if (d.id !== -1) {
+        setAlumniIndex(d.id);
+        setShowInformationPanel(true);
+        setShowAboutPanel(false);
+        if (globeOnlyMode) {
+          setGlobeOnlyMode(false);
+          if (globeEl[0]) globeEl[0].style.left = `0px`;
+
+          // document
+          //   .getElementsByClassName("scene-container")[0]
+          //   ?.classList.toggle("centre");
+        }
+      }
+    };
+
+    // Mouseover handler
+    avatarEl.onmouseover = () => {
       Array.from(
-        el.getElementsByClassName(
+        avatarEl.getElementsByClassName(
           "marker-tooltip"
         ) as HTMLCollectionOf<HTMLElement>
       )[0].style.opacity = "1";
-      el.style.width = `${defaultAvatarSize * 2}px`;
-      el.style.height = `${defaultAvatarSize * 2}px`;
-      el.style.backgroundSize = `${defaultAvatarSize * 2}px`;
+      avatarEl.style.width = `${avatarLarge}vw`;
+      avatarEl.style.height = `${avatarLarge}vw`;
+      avatarEl.style.backgroundSize = `${avatarLarge}vw`;
     };
-    el.onmouseout = () => {
+
+    // Mouseout handler
+    avatarEl.onmouseout = () => {
       Array.from(
-        el.getElementsByClassName(
+        avatarEl.getElementsByClassName(
           "marker-tooltip"
         ) as HTMLCollectionOf<HTMLElement>
       )[0].style.opacity = "0";
-      el.style.width =
-        d.id === alumniIndex || d.id === -1
-          ? `${defaultAvatarSize * 1.5}px`
-          : `${defaultAvatarSize}px`;
-      el.style.height =
-        d.id === alumniIndex || d.id === -1
-          ? `${defaultAvatarSize * 1.5}px`
-          : `${defaultAvatarSize}px`;
-      el.style.backgroundSize = `${
-        d.id === alumniIndex || d.id === -1
-          ? defaultAvatarSize * 1.5
-          : defaultAvatarSize
-      }px`;
+      avatarEl.style.width = avatarSize;
+      avatarEl.style.height = avatarSize;
+      avatarEl.style.backgroundSize = avatarSize;
     };
-    return el;
+
+    // Prevent multi-touch
+    if (q.display) {
+      avatarEl.addEventListener(
+        "touchmove",
+        (e) => {
+          if (e.touches.length > 1) {
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    return avatarEl;
   };
 
+  // Set globe data
   useEffect(() => {
     // Data
     setPointsData([...alumni, ...markers].map((d) => Object.assign({}, d)));
@@ -185,6 +246,7 @@ function App() {
     );
   }, [alumni, markers]);
 
+  // Theme changes
   useEffect(() => {
     const body = document.querySelector("body");
     if (body) {
@@ -197,6 +259,7 @@ function App() {
     }
   }, [theme]);
 
+  // onGlobeReady
   useEffect(() => {
     if (globeReady) {
       // Cast globeRef.current!.scene().children[3].children[0].children[0] to Mesh.
@@ -208,6 +271,15 @@ function App() {
       });
     }
   }, [globeReady, theme]);
+
+  // Disable context menu
+  useEffect(() => {
+    if (query.get("display")) {
+      document.body.style.cursor = "none";
+      document.oncontextmenu = () => false;
+      document.onselectstart = () => false;
+    }
+  }, [query]);
 
   // Window resize
   useLayoutEffect(() => {
@@ -221,40 +293,45 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const calculateFocus = (alumni: any, alumniIndex: number) => {
+  const calculateFocus = (
+    alumni: IAlumniData[],
+    alumniIndex: number,
+    showcaseMode: boolean
+  ) => {
     return {
       lat:
         alumni[alumniIndex].lat > 0
-          ? alumni[alumniIndex].lat - 5
-          : alumni[alumniIndex].lat + 5,
+          ? alumni[alumniIndex].lat - 3
+          : alumni[alumniIndex].lat + 3,
       lng: alumni[alumniIndex].lng,
-      altitude: alumni[alumniIndex].altitude,
+      altitude: showcaseMode === true ? 1.7 : alumni[alumniIndex].altitude,
     };
   };
 
   // Cycle through alumni
   useEffect(() => {
-    console.log("alumniIndex", alumniIndex);
     // Update point of view
+    // if (!showcaseMode) {
     globeRef.current!.pointOfView(
       {
-        ...calculateFocus(alumni, alumniIndex),
+        ...calculateFocus(alumni, alumniIndex, showcaseMode),
         ...(globeOnlyMode && { altitude }),
       },
       alumni[alumniIndex].transitionTime
     );
     if (autoPlay) {
       const interval = setInterval(() => {
-        console.log("alumniIndex", alumniIndex);
         // Next alumni index
-        const nextAlumniIndex =
-          alumniIndex === alumni.length - 1 ? 0 : alumniIndex + 1;
+        const nextAlumniIndex = shuffleMode
+          ? Math.floor(Math.random() * alumni.length)
+          : alumniIndex === alumni.length - 1
+          ? 0
+          : alumniIndex + 1;
 
         // Change point of view
         globeRef.current!.pointOfView(
           {
-            ...calculateFocus(alumni, alumniIndex),
+            ...calculateFocus(alumni, alumniIndex, showcaseMode),
             ...(globeOnlyMode && { altitude }),
           },
           alumni[nextAlumniIndex].transitionTime
@@ -269,98 +346,161 @@ function App() {
         setAlumniIndex(nextAlumniIndex);
       }, alumni[alumniIndex].focusTime);
       return () => clearInterval(interval);
+      // }
     }
-  }, [autoPlay, alumniIndex, alumni, ringsData, altitude, globeOnlyMode]);
+  }, [
+    autoPlay,
+    showcaseMode,
+    shuffleMode,
+    alumniIndex,
+    alumni,
+    ringsData,
+    altitude,
+    globeOnlyMode,
+  ]);
+
+  useEffect(() => {
+    setRingsData([
+      {
+        lat: alumni[alumniIndex].lat,
+        lng: alumni[alumniIndex].lng,
+      },
+    ]);
+  }, [alumni, alumniIndex]);
+
+  // Globe Properties
+  // Custom Layer
+  const globeColor = theme ? 0xffcbff : 0x1b0220;
+  const transitionTime = 2000;
+  const initialPointOfView = calculateFocus(alumni, alumniIndex, showcaseMode);
+  const autoRotateSpeed = 0.05;
+  const width = globeWidth;
+  const height = globeHeight;
+  const atmosphereColor = theme ? veryLightPink : midPink;
+  const atmosphereAltitude = 0.5;
+  const hexPolygonsData = hexMap;
+  const hexPolygonResolution =
+    q.hex === "3" || q.hex === "4" ? parseInt(q.hex) : 3;
+  const hexPolygonCurvatureResolution = 5;
+  const pointResolution = 6;
+  const pointRadius = 0.1;
+  const pointLabel = "";
+  const arcStartLat = origin.lat;
+  const arcStartLng = origin.lng;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const arcEndLat = (d: any) => d.lat;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const arcEndLng = (d: any) => d.lng;
+  const arcStroke = 0.2;
+  const arcDashLength = 0.5;
+  const arcDashGap = 1;
+  const arcLabel = "";
+  const ringMaxRadius = 2.5;
+  const ringPropagationSpeed = 0.75;
+  const ringRepeatPeriod = 1000;
+  const showGraticules = false;
+  const showGlobe = true;
 
   const globeProps = {
     // React
     globeRef,
 
     // Custom
-    globeColor: theme ? 0xffcbff : 0x1b0220,
+    globeColor,
     setGlobeReady,
-    transitionTime: 2000,
-    initialPointOfView: calculateFocus(alumni, alumniIndex),
+    transitionTime,
+    initialPointOfView,
 
     // Controls
     autoRotate,
-    autoRotateSpeed: 0.1,
+    autoRotateSpeed,
 
     // Container Layout
-    width: globeWidth,
-    height: globeHeight,
+    width,
+    height,
     backgroundColor,
 
     // Globe Layer
-    atmosphereColor: theme ? "#ffeeff" : "#9a729b",
-    atmosphereAltitude: 0.5,
-    // onGlobeReady,
+    atmosphereColor,
+    atmosphereAltitude,
 
     // Hex Polygon layer,
-    hexPolygonsData: hexMap,
-    hexPolygonResolution: 3, // 4 potentially too high
-    hexPolygonCurvatureResolution: 5,
+    hexPolygonsData,
+    hexPolygonResolution,
+
+    hexPolygonCurvatureResolution,
     hexPolygonMargin,
     hexPolygonColor,
 
     // Points Layer
     pointsData,
-    pointResolution: 6,
-    pointRadius: 0.2,
+    pointResolution,
+    pointRadius,
     pointColor,
     pointAltitude,
-    pointLabel: "",
+    pointLabel,
 
     // Arcs Layer
     arcsData,
-    arcStartLat: origin.lat,
-    arcStartLng: origin.lng,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    arcEndLat: (d: any) => d.lat,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    arcEndLng: (d: any) => d.lng,
+    arcStartLat,
+    arcStartLng,
+    arcEndLat,
+    arcEndLng,
     arcColor,
-    arcStroke: 0.3,
-    arcDashLength: 0.5,
-    arcDashGap: 1,
+    arcStroke,
+    arcDashLength,
+    arcDashGap,
     arcDashAnimateTime,
     arcDashInitialGap,
-    arcLabel: "",
+    arcLabel,
 
     // Rings Layer
     ringsData,
     ringColor,
-    ringMaxRadius: 2.5,
-    ringPropagationSpeed: 0.75,
-    ringRepeatPeriod: 1000,
+    ringMaxRadius,
+    ringPropagationSpeed,
+    ringRepeatPeriod,
 
     // // HTML Layer
     htmlElementsData,
     htmlElement,
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     htmlAltitude,
-    // htmlTransitionDuration: () => "1s",
+    showGraticules,
+    showGlobe,
+  };
+
+  const interfaceProps = {
+    globeRef,
+    alumni,
+    alumniIndex,
+    setAlumniIndex,
+    organisations,
+    query,
+    theme,
+    setTheme,
+    autoPlay,
+    setAutoPlay,
+    shuffleMode,
+    setShuffleMode,
+    showcaseMode,
+    setShowcaseMode,
+    autoRotate,
+    setAutoRotate,
+    altitude,
+    setAltitude,
+    globeOnlyMode,
+    setGlobeOnlyMode,
+    showAboutPanel,
+    setShowAboutPanel,
+    showInformationPanel,
+    setShowInformationPanel,
   };
 
   return (
     <>
-      <Interface
-        globeRef={globeRef}
-        alumni={alumni}
-        alumniIndex={alumniIndex}
-        setAlumniIndex={setAlumniIndex}
-        theme={theme}
-        setTheme={setTheme}
-        autoPlay={autoPlay}
-        setAutoPlay={setAutoPlay}
-        autoRotate={autoRotate}
-        setAutoRotate={setAutoRotate}
-        altitude={altitude}
-        setAltitude={setAltitude}
-        globeOnlyMode={globeOnlyMode}
-        setGlobeOnlyMode={setGlobeOnlyMode}
-      />
+      {!q.notitle && <Loader globeReady={globeReady} theme={theme} />}
+      <Interface {...interfaceProps} />
       <Globe {...globeProps} />
     </>
   );

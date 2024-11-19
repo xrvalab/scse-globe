@@ -8,6 +8,7 @@ Built with [Vite](https://vitejs.dev), [React](https://react.dev) and [TypeScrip
 
 - [Globe Data](#globe-data)
 - [API Keys](#api-keys)
+- [Display Options](#display-options)
 - [Credits](#credits)
 
 ## Globe Data
@@ -21,6 +22,15 @@ API keys are required for the following services:
 - `VITE_AISSTREAM_API_KEY` - [aisstream.io](https://aisstream.io) - Ship tracking (for the Prince Madog and Breeze)
 
 Add `.env.local` in the route of the project with the keys you wish to activate.
+
+## URL Parameters for Display Options
+
+- Append `?display=1` to the URL to disable multi-touch zoom, context menus, and cursors.
+- Append `?theme=0|1` to the URL to specify the initial theme. Light: `0`, Dark: `1`.
+
+### Usage Example
+
+`http://localhost:3000?display=1&theme=1` will disable multi-touch zoom and load in dark mode
 
 ## Credits
 
