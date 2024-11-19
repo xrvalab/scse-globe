@@ -25,8 +25,10 @@ Add `.env.local` in the route of the project with the keys you wish to activate.
 
 ## URL Parameters for Display Options
 
-- Append `?display=1` to the URL to disable multi-touch zoom, context menus, and cursors.
-- Append `?theme=0|1` to the URL to specify the initial theme. Light: `0`, Dark: `1`.
+- Append `?display=1` to disable multi-touch zoom, context menus, and cursors.
+- Append `?theme=0|1` to specify initial theme. Light: `0`, Dark: `1`.
+- Append `?hex=3|4` to specify globe hex resolution.
+- Append `?notitle=1` to not render title screen.
 
 ### Usage Example
 
