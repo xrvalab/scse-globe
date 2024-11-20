@@ -6,7 +6,6 @@ interface IData {
   altitude: number;
   focusTime: number;
   transitionTime: number;
-  size: number;
 }
 
 export default IData;

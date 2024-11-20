@@ -18,10 +18,11 @@ const AboutPanel = () => (
       The visualization is powered by:
     </p>
     <ul>
+      <li>Vite</li>
       <li>TypeScript</li>
-      <li>ReactJS</li>
-      <li>WebGL (ThreeJS)</li>
-      <li>Globe.GL</li>
+      <li>React</li>
+      <li>Three.js</li>
+      <li>Globe.GL (react-globe-gl)</li>
       <li>Font Awesome</li>
     </ul>
     <h3>Credits</h3>

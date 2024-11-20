@@ -22,5 +22,9 @@
   "King Abdullah University of Science and Technology (KAUST)": {
     "name": "King Abdullah University of Science and Technology (KAUST)",
     "icon": "kaust.png"
+  },
+  "Technische Universität Chemnitz": {
+    "name": "echnische Universität Chemnitz",
+    "icon": "tuchemnitz.png"
   }
 }

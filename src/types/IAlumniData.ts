@@ -12,7 +12,6 @@ interface IAlumniData {
   altitude: number;
   focusTime: number;
   transitionTime: number;
-  size: number;
   avatar: string;
 }
 

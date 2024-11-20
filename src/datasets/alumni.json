@@ -19,7 +19,6 @@
     "altitude": 0.4,
     "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "megan-wyn-owen.png"
   },
   {
@@ -39,7 +38,6 @@
     "altitude": 0.75,
     "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "andre-mugliett.png"
   },
   {
@@ -55,10 +53,9 @@
     ],
     "lat": 52.638291,
     "lng": 13.044412,
-    "altitude": 0.75,
+    "altitude": 0.55,
     "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "francis-williams.png"
   },
   {
@@ -77,7 +74,6 @@
     "altitude": 0.75,
     "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "delvin-varghese.png"
   },
   {
@@ -96,7 +92,6 @@
     "altitude": 0.4,
     "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "truly-capell.png"
   },
   {
@@ -109,13 +104,34 @@
       "MScRes Electronic Engineering (2020)"
     ],
     "jobTitle": "PhD Student",
-    "about": ["Currently Studying for a PhD in Microwave Engineering at KAUST"],
+    "about": [
+      "During my time at Bangor, I was under the supervision of Professor Chris Hancock. I was very fortunate to have worked with him on real world medical device applications such as a miniature endoscope to diagnose and treat lung cancer. After graduating, I was able to work at Chris's company, Creo Medical, where I continued my work on medical devices as an R&D engineer and was able to achieve a few patents. This set me up well for my next adventure where I have decided to pursue my PhD at King Abdullah University of Science and Technology (KAUST) in Saudi Arabia.",
+      "My time at Bangor was very enjoyable and I could not have wished for a better experience. The close relationships that I developed with all the Professors at Bangor will always be cherished. All the staff at Bangor are approachable and their doors are genuinely always open to hear your concerns of if you just fancy a chat.",
+      "My advice to students would be don't hesitate to join Bangor as you will always feel welcomed and supported by everyone at the university. The time will pass by quicker than you think and soon enough you'll find yourself in places you could never imagine."
+    ],
     "lat": 22.309668,
     "lng": 39.105285,
     "altitude": 0.75,
-    "focusTime": 15000,
+    "focusTime": 30000,
     "transitionTime": 2500,
-    "size": 30,
     "avatar": "aeron-jones.png"
+  },
+  {
+    "name": "Cai Williams",
+    "city": "Chemnitz",
+    "country": "Germany",
+    "organisation": "Technische Universität Chemnitz",
+    "degrees": ["MEng Electronic Engineering (2019)"],
+    "jobTitle": "Postdoctoral Research Assistant",
+    "about": [
+      "Currently working as a Postdoctoral Research Assistant within a Germany wide research consortium.",
+      "Researching how to apply machine learning in order to develop the next generation of fully printed organic photovoltaics."
+    ],
+    "lat": 50.840081185288284,
+    "lng": 12.927950333827216,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "cai-williams.png"
   }
 ]
