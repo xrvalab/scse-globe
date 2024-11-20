@@ -270,6 +270,7 @@ const Controls = function ({
               },
               2000
             );
+            setAltitude(1.9);
           }}
         >
           <i className="fas fa-camera fa-stack-1x"></i>

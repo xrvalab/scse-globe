@@ -34,15 +34,17 @@ const defaultAvatarSize = 30;
 const origin = markersPath[0];
 
 // Colours
-const veryLightPink = "#ffeeff";
-const lightPink = "#ffd0f6";
-const pink = "#ff80dd";
-const midPink = "#9a729b";
-const darkPink = "#954a89";
-const darkPurple = "#531849";
-const midBlue = "#0083bb";
-const pinkWithOpacity = "#ff80ddcc";
-const blueWithOpacity = "#00b3ff7e";
+import {
+  veryLightPink,
+  lightPink,
+  pink,
+  midPink,
+  darkPink,
+  darkPurple,
+  midBlue,
+  pinkWithOpacity,
+  blueWithOpacity,
+} from "./components/misc/colours";
 
 // Multiplier for arc dash animation duration
 const arcDashAnimateTimeMultiplier = 2;
@@ -242,6 +244,15 @@ function App() {
     return avatarEl;
   };
 
+  // Auto rotate speed
+  // useEffect(() => {
+  //   if (altitude === 1.85 || altitude === 1.9) {
+  //     globeRef.current!.controls().autoRotateSpeed = 0.5;
+  //   } else {
+  //     globeRef.current!.controls().autoRotateSpeed = 0.01;
+  //   }
+  // }, [globeRef, altitude]);
+
   // Set globe data
   useEffect(() => {
     // Data
@@ -377,9 +388,9 @@ function App() {
   // Globe Properties
   // Custom Layer
   const globeColor = theme ? 0xffcbff : 0x1b0220;
+  const autoRotateSpeed = 0.1;
   const transitionTime = 2000;
   const initialPointOfView = calculateFocus(alumni, alumniIndex, showcaseMode);
-  const autoRotateSpeed = 0.05;
   const width = globeWidth;
   const height = globeHeight;
   const atmosphereColor = theme ? veryLightPink : midPink;
