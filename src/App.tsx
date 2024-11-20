@@ -44,9 +44,13 @@ const midBlue = "#0083bb";
 const pinkWithOpacity = "#ff80ddcc";
 const blueWithOpacity = "#00b3ff7e";
 
+// Multiplier for arc dash animation duration
+const arcDashAnimateTimeMultiplier = 2;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const arcDashAnimateTime = (d: any) =>
-  getDistanceFromLatLngInKm(origin.lat, origin.lng, d.lat, d.lng);
+  getDistanceFromLatLngInKm(origin.lat, origin.lng, d.lat, d.lng) *
+  arcDashAnimateTimeMultiplier;
 const arcDashInitialGap = 0;
 
 function App() {
@@ -126,10 +130,12 @@ function App() {
   const ringColor = () => (theme ? darkPink : pink);
   // const pointAltitude = (d: any) => 0.1;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pointAltitude = (d: any) => (alumniIndex === d.id ? 0.1 : 0.05);
+  const pointAltitude = (d: any) =>
+    d.id === -1 ? 0.09 : alumniIndex === d.id ? 0.1 : 0.05;
   // const htmlAltitude = (d: any) => 0.15;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const htmlAltitude = (d: any) => (alumniIndex === d.id ? 0.1 : 0.05);
+  const htmlAltitude = (d: any) =>
+    d.id === -1 ? 0.09 : alumniIndex === d.id ? 0.1 : 0.05;
   const hexPolygonMargin = () => (theme ? 0.6 : 0.7);
   const hexPolygonColor = () => (theme ? 0xc07ec0 : 0x803e80);
 

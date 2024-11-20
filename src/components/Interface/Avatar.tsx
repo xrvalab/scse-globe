@@ -8,7 +8,7 @@ const Avatar = styled.img`
   width: 13.5vw;
   height: 13.5vw;
   border: solid 0.3vw white;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
 `;
 
 export default Avatar;

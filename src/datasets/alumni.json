@@ -124,8 +124,9 @@
     "degrees": ["MEng Electronic Engineering (2019)"],
     "jobTitle": "Postdoctoral Research Assistant",
     "about": [
-      "Currently working as a Postdoctoral Research Assistant within a Germany wide research consortium.",
-      "Researching how to apply machine learning in order to develop the next generation of fully printed organic photovoltaics."
+      "Currently working as a Postdoctoral Research Assistant within a Germany wide research consortium. I am researching how to apply machine learning in order to develop the next generation of fully printed organic photovoltaics. My role is mainly concentrated on enabling the rapid comprehensive characterisation of organic solar cells using machine learning through combining simple characterisations and simulation. Beyond research, my role has me managing small projects, such as furthering our experimental setups or organising development events for PhDs within the research consortium.",
+      "While I have many highlights from my time at Bangor, one that stands out for me is the MEng project I was lucky enough to be a part of. Building showcases of how the UN's sustainable development goals could be applied to an urban space. While not a typical engineering project, the opportunity to work in an interdisciplinary team has influenced much of my work since.",
+      "My advice to students is that if you go to lectures, you'll likely be fine, and if you're not fine, don't be afraid to ask questions"
     ],
     "lat": 50.840081185288284,
     "lng": 12.927950333827216,
@@ -133,5 +134,22 @@
     "focusTime": 30000,
     "transitionTime": 2500,
     "avatar": "cai-williams.png"
+  },
+  {
+    "name": "Daniel Evans",
+    "city": "Old Colwyn",
+    "country": "UK",
+    "organisation": "North Wales Fire and Rescue Service",
+    "degrees": ["BSc Computer Information Systems (2022)"],
+    "jobTitle": "Data Analyst",
+    "about": [
+      "Studying Computer Information Systems at Bangor provided me with a number of skills, allowing me to secure a great role conducting data analysis for North Wales Fire and Rescue Service. My advice to any student would be to take advantage of the university's internship scheme, as it provides a great insight into the world of work, and can unlock many exciting opportunities."
+    ],
+    "lat": 53.288572,
+    "lng": -3.693926,
+    "altitude": 0.4,
+    "focusTime": 15000,
+    "transitionTime": 2500,
+    "avatar": "daniel-evans.png"
   }
 ]
