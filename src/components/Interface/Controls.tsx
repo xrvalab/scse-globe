@@ -169,9 +169,10 @@ const Controls = function ({
           )}
         </Button>
         <Divider />
-        <Button theme={theme} data-tooltip="Layers" onClick={() => {}}>
+        {/* TODO: */}
+        {/* <Button theme={theme} data-tooltip="Layers" onClick={() => {}}>
           <i className="fas fa-layer-group"></i>
-        </Button>
+        </Button> */}
         <Button
           theme={theme}
           data-tooltip={globeOnlyMode ? "Show Information Panel" : "Globe Only"}

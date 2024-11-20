@@ -27,8 +27,8 @@ body {
 .marker-tooltip {
   opacity: 0;
   position: absolute;
-  width: 400px;
-  left: -160px;
+  width: 30vw;
+  left: -13vw;
   top: -55px;
   text-align: center;
   font-weight: bold;
