@@ -9,6 +9,7 @@ export type { default as IRingData } from "./IRingData";
 // Interface
 export type { default as IInterface } from "./IInterface";
 export type { default as IControls } from "./IControls";
+export type { default as ITimeline } from "./ITimeline";
 
 // InterfaceData
 export type { default as IAlumniProfile } from "./IAlumniProfile";

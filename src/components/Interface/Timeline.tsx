@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { ITimeline } from "../../types";
 
 const timeline = keyframes`
 0% {
@@ -9,13 +10,7 @@ const timeline = keyframes`
 }
 `;
 
-const Timeline = styled.div<{
-  visible: boolean;
-  theme: boolean;
-  focusTime: number;
-  globeOnlyMode: boolean;
-  showcaseMode: boolean;
-}>`
+const Timeline = styled.div<ITimeline>`
   position: absolute;
   bottom: -1.9vh;
   width: 17.5vw;

@@ -1,7 +1,15 @@
+import styled from "styled-components";
 import XRVALogo from "./XRVALogo";
 
+const StyledAboutPanel = styled.div`
+  p,
+  ul {
+    font-size: 1.2em;
+  }
+`;
+
 const AboutPanel = () => (
-  <>
+  <StyledAboutPanel>
     <h2 className="about">The SCSE Globe</h2>
     <h3>A Data Visualization Experiment</h3>
     <p>
@@ -29,7 +37,7 @@ const AboutPanel = () => (
       and Analytics Lab)
     </p>
     <XRVALogo />
-  </>
+  </StyledAboutPanel>
 );
 
 export default AboutPanel;

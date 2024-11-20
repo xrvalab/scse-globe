@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { IControls } from "../../types";
-import Timeline from "./Timeline";
+import { IControls, ITimeline } from "../../types";
+// import Timeline from "./Timeline";
 import Button from "./Button";
+import Timeline from "./Timeline";
 
 const Divider = styled.div`
   width: 1vw;
@@ -30,6 +31,8 @@ const HideableControls = styled.div<{ controlsVisible: boolean }>`
   opacity: ${({ controlsVisible }) => (controlsVisible ? "1" : "0")};
   margin-right: ${({ controlsVisible }) => (controlsVisible ? "0px" : "-2vh")};
   transition: all ease-in-out 1s;
+  pointer-events: ${({ controlsVisible }) =>
+    controlsVisible ? "all" : "none"};
 `;
 
 const Controls = function ({
@@ -58,6 +61,22 @@ const Controls = function ({
   setControlsVisible,
 }: IControls) {
   const controlsRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  const TimelineInstance = ({
+    theme,
+    visible,
+    focusTime,
+    globeOnlyMode,
+    showcaseMode,
+  }: ITimeline) => (
+    <Timeline
+      theme={theme}
+      visible={visible}
+      focusTime={focusTime}
+      globeOnlyMode={globeOnlyMode}
+      showcaseMode={showcaseMode}
+    />
+  );
 
   useEffect(() => {
     const handleTouchMove = (e: TouchEvent) => {
@@ -90,7 +109,7 @@ const Controls = function ({
       showcaseMode={showcaseMode}
     >
       <HideableControls controlsVisible={controlsVisible}>
-        <Timeline
+        <TimelineInstance
           theme={theme}
           visible={autoPlay}
           focusTime={alumni[alumniIndex].focusTime / 1000}
@@ -150,6 +169,9 @@ const Controls = function ({
           )}
         </Button>
         <Divider />
+        <Button theme={theme} data-tooltip="Layers" onClick={() => {}}>
+          <i className="fas fa-layer-group"></i>
+        </Button>
         <Button
           theme={theme}
           data-tooltip={globeOnlyMode ? "Show Information Panel" : "Globe Only"}

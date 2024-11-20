@@ -26,3 +26,4 @@ dist-ssr
 # Globe data
 datasets/
 public/avatars/
+public/organisations/
