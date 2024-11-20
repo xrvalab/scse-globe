@@ -13,7 +13,7 @@ Built with [Vite](https://vitejs.dev), [React](https://react.dev) and [TypeScrip
 
 ## Globe Data
 
-Globe profile data should be included in `src/datasets` and `public/avatars`, format TBC.
+Globe profile data should be included in `src/datasets`, `public/avatars`, and `public/organisations`. File format TBC.
 
 ## API Keys
 
