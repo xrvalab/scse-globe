@@ -1,0 +1,121 @@
+[
+  {
+    "name": "Megan Wyn Owen",
+    "city": "Cardiff",
+    "country": "United Kingdom",
+    "organisation": "EDF UK",
+    "jobTitle": "Fuel and Reactor Physics Research Engineer",
+    "degrees": [
+      "BEng Electronic Engineering (2013)",
+      "PhD Nuclear Science and Engineering (2019)"
+    ],
+    "about": [
+      "After finishing my PhD at Bangor University, I pursued a Postdoctoral Research Associate position at Imperial College London researching nuclear materials. I then moved onto my current role, where I now work at EDF UK as a Fuel and Reactor Physics Research Engineer within the Nuclear R&D team.",
+      "My experiences at Bangor were invaluable - from being able to volunteer in outreach events with the school and taking part in open days, to travelling to Hawaii with my research group to present at international conferences. I had full support during the 6 years I was at Bangor and felt fully equipped to move into the world of work.",
+      "My advice to students coming to Bangor would be to enjoy it! 3 or 4 years go so fast, so make the most of every opportunity you are given. Get involved with the school's open day, or other extra-curricular events - it is a great way to meet more people and develop your interpersonal skills while studying."
+    ],
+    "lat": 51.498927,
+    "lng": -3.200586,
+    "altitude": 0.4,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "megan-wyn-owen.png"
+  },
+  {
+    "name": "André Mugliett",
+    "city": "Kirkop",
+    "country": "Malta",
+    "organisation": "STMicroelectronics",
+    "degrees": ["BSc Electronic Engineering (2019)"],
+    "jobTitle": "Senior Project Engineer",
+    "about": [
+      "Tasked with managing projects within a semiconductor manufacturing site mainly focusing on R&D, automation and industry 4.0 deployment.",
+      "While at Bangor, the support I received from many lecturers was phenomenal. In particular Prof. Iestyn Pierce was absolutely adamant in making sure his students were given the support and tools to succeed, both on a technical level but more importantly on a human level. He was always ready to help, and was always happy to take the time to individually sit with students who asked for his help. Not only is the campus and Bangor itself beautiful, but also the staff truly do bring a sense of care and understanding to the university and the students therein.",
+      "Do not be afraid to ask for help, whether it be in studies or in your personal life. In addition to that, don't focus on others' accomplishments, focus simply on being better than you were yesterday, everyone is on a different journey."
+    ],
+    "lat": 35.847512,
+    "lng": 14.484708,
+    "altitude": 0.75,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "andre-mugliett.png"
+  },
+  {
+    "name": "Francis Williams",
+    "city": "Brandenburg",
+    "country": "Germany",
+    "organisation": "ExaDev (Sourcepulp Ltd.)",
+    "degrees": ["MSc Computing & Internet System (2011)"],
+    "jobTitle": "CTO/Co-founder/Principal Consultant",
+    "about": [
+      "A truly full-stack developer with extensive experience in the Fintech sector, Francis has a 12 year track record as a technical consultant for agile SMEs, institutions and startups like Bee Robotics, Rothamsted Research, Bangor University, VibePay and ClearStake.",
+      "Francis has held CTO-level positions for clients, architected cloud platforms and infrastructure and led service delivery teams in backend, frontend web and mobile."
+    ],
+    "lat": 52.638291,
+    "lng": 13.044412,
+    "altitude": 0.75,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "francis-williams.png"
+  },
+  {
+    "name": "Delvin Varghese",
+    "city": "Melbourne",
+    "country": "Australia",
+    "organisation": "Action Lab, Monash University",
+    "degrees": ["BSc Computer Science (2014)", "MSc Computer Science (2015)"],
+    "jobTitle": "Lecturer (Technology and Design for Nonprofits)",
+    "about": [
+      "I work with nonprofits in Australia and abroad who are committed to empowering local communities. Typically these organisations work in what is called the humanitarian, International development or community development sector.",
+      "I am a technologist by background and recently finished a PhD where I reflected on my consulting and project management experiences developing low-cost and accessible audio and video technologies."
+    ],
+    "lat": -37.820015,
+    "lng": 145.035078,
+    "altitude": 0.75,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "delvin-varghese.png"
+  },
+  {
+    "name": "Truly Capell",
+    "city": "London",
+    "country": "United Kingdom",
+    "organisation": "Capgemini Invent",
+    "degrees": ["BEng Computer Systems Engineering (2019)"],
+    "jobTitle": "Senior User Research Consultant",
+    "about": [
+      "I'm a Senior User Research consultant, my job consists of user centred problem solving to create digital services and products that meet User needs. Which is a fancy way of saying, I collect data from multiple sources, analyse it and create insights and recommendations so that we create digital services that people really need.",
+      "My degree really equipped me to think about problems holistically as well as diving into the nitty gritty detail, the analytic approach instilled in you allows you to consider multiple and intertwined problems, which now is an environment I thrive in."
+    ],
+    "lat": 51.502277,
+    "lng": 0,
+    "altitude": 0.4,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "truly-capell.png"
+  },
+  {
+    "name": "Aeron Jones",
+    "city": "Thuwal",
+    "country": "Saudi Arabia",
+    "organisation": "King Abdullah University of Science and Technology (KAUST)",
+    "degrees": [
+      "BEng Electronic Engineering (2018)",
+      "MScRes Electronic Engineering (2020)"
+    ],
+    "jobTitle": "PhD Student",
+    "about": ["Currently Studying for a PhD in Microwave Engineering at KAUST"],
+    "lat": 22.309668,
+    "lng": 39.105285,
+    "altitude": 0.75,
+    "focusTime": 15000,
+    "transitionTime": 2500,
+    "size": 30,
+    "avatar": "aeron-jones.png"
+  }
+]

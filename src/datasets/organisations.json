@@ -1,0 +1,26 @@
+{
+  "EDF UK": {
+    "name": "EDF UK",
+    "icon": "edfuk.png"
+  },
+  "STMicroelectronics": {
+    "name": "STMicroelectronics",
+    "icon": "stmicroelectronics.png"
+  },
+  "ExaDev (Sourcepulp Ltd.)": {
+    "name": "ExaDev (Sourcepulp Ltd.)",
+    "icon": "exadev.png"
+  },
+  "Action Lab, Monash University": {
+    "name": "Action Lab, Monash University",
+    "icon": "monash.png"
+  },
+  "Capgemini Invent": {
+    "name": "Capgemini Invent",
+    "icon": "capgeminiinvent.png"
+  },
+  "King Abdullah University of Science and Technology (KAUST)": {
+    "name": "King Abdullah University of Science and Technology (KAUST)",
+    "icon": "kaust.png"
+  }
+}
