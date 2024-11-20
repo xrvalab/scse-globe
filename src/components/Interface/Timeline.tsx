@@ -6,7 +6,7 @@ const timeline = keyframes`
   width: 0px;
 }
 100% {
-  width: 266px; // FIXME: Dynamic based on divider and button widths
+  width: calc(17.5vw - 4px); // FIXME: Dynamic based on divider and button widths
 }
 `;
 
