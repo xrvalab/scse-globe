@@ -234,7 +234,7 @@ const Controls = function ({
           }}
         >
           <i className="fas fa-sync fa-stack-1x"></i>
-          {autoRotate ? null : <i className="fas fa-slash fa-stack-1x"></i>}
+          {autoRotate ? <i className="fas fa-slash fa-stack-1x"></i> : null}
         </Button>
         <Button
           theme={theme}
