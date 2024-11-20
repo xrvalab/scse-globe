@@ -6,7 +6,7 @@ const timeline = keyframes`
   width: 0px;
 }
 100% {
-  width: calc(17.5vw - 4px); // FIXME: Dynamic based on divider and button widths
+  width: calc(17.5vw - 0.3vw); // FIXME: Dynamic based on divider and button widths
 }
 `;
 
@@ -28,8 +28,8 @@ const Timeline = styled.div<ITimeline>`
     content: "";
     position: absolute;
     height: 0.4vh;
-    top: 0.3vh;
-    left: 0.3vh;
+    top: 0.32vh;
+    left: 0.15vw;
     width: 0px;
     background-color: white;
     border-radius: 3px;
