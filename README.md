@@ -1,4 +1,4 @@
-![SCSE Globe Teaser](./public/github/scse-globe-teaser.png)
+[![SCSE Globe Teaser](./public/github/scse-globe-teaser.png)](https://xrvalab.github.io/scse-globe)
 
 ---
 
