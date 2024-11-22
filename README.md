@@ -1,6 +1,10 @@
+![SCSE Globe Teaser](./public/github/scse-globe-teaser.png)
+
+---
+
 # SCSE Globe
 
-Interactive Data Globe for Bangor University School of Computer Science and Engineering
+Interactive Data Globe for [Bangor University School of Computer Science and Engineering](https://www.bangor.ac.uk/scse)
 
 Built with [Vite](https://vitejs.dev), [React](https://react.dev) and [TypeScript](https://typescriptlang.org)
 
@@ -36,8 +40,18 @@ Add `.env.local` in the route of the project with the keys you wish to activate.
 
 ## Credits
 
+Special thanks to our fantastic alumni for contributing content for the alumni database.
+
 - Globe.GL ([source](https://globe.gl))
 - Natural Earth Vector ([source](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson))
 - FontFaceKit Roboto ([source](https://github.com/FontFaceKit/roboto/tree/woff))
 
-© Copyright Peter Butcher 2024
+Created by [Peter Butcher](https://pbutcher.uk)
+
+[XRealtity, Visualization, and Analytics Lab](https://xrvalab.github.io)  
+[School of Computer Science and Engineering](https://bangor.ac.uk/scse)  
+[Bangor University](https://bangor.ac.uk)
+
+---
+
+[![An Open Source Project by XRVA](./public/github/github-footer.png)](https://github.com/xrvalab)
