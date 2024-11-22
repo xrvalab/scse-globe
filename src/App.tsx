@@ -1,25 +1,27 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { GlobeMethods } from "react-globe.gl";
-
-// Components
-import { Globe, Interface, Loader } from "./components";
-
-// Three
 import * as THREE from "three";
-
-// Types
+// import { useIdleTimer } from "react-idle-timer";
+import { Globe, Interface, Loader } from "./components";
 import { IAlumniData, IData, IRingData, IOrganisations } from "./types";
-
-// Datasets
 import {
   alumniPath,
   organisationsPath,
   markersPath,
   hexMapPath,
 } from "./datasets";
-
-// Utils
 import { getDistanceFromLatLngInKm } from "./utils";
+import {
+  veryLightPink,
+  lightPink,
+  pink,
+  midPink,
+  darkPink,
+  darkPurple,
+  midBlue,
+  pinkWithOpacity,
+  blueWithOpacity,
+} from "./components/misc/colours";
 
 // Globe Scale Multiplier
 const globeScaleUp = 1.49;
@@ -33,19 +35,6 @@ const defaultAvatarSize = 30;
 // Origin
 const origin = markersPath[0];
 
-// Colours
-import {
-  veryLightPink,
-  lightPink,
-  pink,
-  midPink,
-  darkPink,
-  darkPurple,
-  midBlue,
-  pinkWithOpacity,
-  blueWithOpacity,
-} from "./components/misc/colours";
-
 // Multiplier for arc dash animation duration
 const arcDashAnimateTimeMultiplier = 2;
 
@@ -54,6 +43,25 @@ const arcDashAnimateTime = (d: any) =>
   getDistanceFromLatLngInKm(origin.lat, origin.lng, d.lat, d.lng) *
   arcDashAnimateTimeMultiplier;
 const arcDashInitialGap = 0;
+
+// const ResetNotice = () =>
+//   //   {
+//   //   setShowResetNotice,
+//   // }: {
+//   //   setShowResetNotice: React.Dispatch<React.SetStateAction<boolean>>;
+//   // }
+//   {
+//     // const showTime = 10000; // 10 seconds
+
+//     // useEffect(() => {
+//     //   const interval = setInterval(() => {
+//     //     setShowResetNotice(false);
+//     //   }, showTime);
+//     //   return () => clearInterval(interval);
+//     // });
+
+//     return <div>Reset Notice</div>;
+//   };
 
 function App() {
   // Query params
@@ -100,6 +108,8 @@ function App() {
   ]);
   const [showAboutPanel, setShowAboutPanel] = useState(false);
   const [showInformationPanel, setShowInformationPanel] = useState(true);
+  // const [showResetNotice, setShowResetNotice] = useState(false);
+
   // Hex map
   const hexMap = hexMapPath.features;
 
@@ -148,6 +158,21 @@ function App() {
     ) as unknown as HTMLCollectionOf<HTMLElement>
   );
 
+  const calculateFocus = (
+    alumni: IAlumniData[],
+    alumniIndex: number,
+    showcaseMode: boolean
+  ) => {
+    return {
+      lat:
+        alumni[alumniIndex].lat > 0
+          ? alumni[alumniIndex].lat - 3
+          : alumni[alumniIndex].lat + 3,
+      lng: alumni[alumniIndex].lng,
+      altitude: showcaseMode === true ? 1.7 : alumni[alumniIndex].altitude,
+    };
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const htmlElement = (d: any) => {
     const tooltip = document.createElement("div");
@@ -193,6 +218,7 @@ function App() {
         setAlumniIndex(d.id);
         setShowInformationPanel(true);
         setShowAboutPanel(false);
+
         if (globeOnlyMode) {
           setGlobeOnlyMode(false);
           if (globeEl[0]) globeEl[0].style.left = `0px`;
@@ -251,7 +277,7 @@ function App() {
   //   } else {
   //     globeRef.current!.controls().autoRotateSpeed = 0.01;
   //   }
-  // }, [globeRef, altitude]);
+  // }, [globeRef, altitude, alumniIndex]);
 
   // Set globe data
   useEffect(() => {
@@ -309,21 +335,6 @@ function App() {
 
     return () => window.removeEventListener("resize", handleResize);
   });
-
-  const calculateFocus = (
-    alumni: IAlumniData[],
-    alumniIndex: number,
-    showcaseMode: boolean
-  ) => {
-    return {
-      lat:
-        alumni[alumniIndex].lat > 0
-          ? alumni[alumniIndex].lat - 3
-          : alumni[alumniIndex].lat + 3,
-      lng: alumni[alumniIndex].lng,
-      altitude: showcaseMode === true ? 1.7 : alumni[alumniIndex].altitude,
-    };
-  };
 
   // Cycle through alumni
   useEffect(() => {
@@ -385,10 +396,33 @@ function App() {
     ]);
   }, [alumni, alumniIndex]);
 
+  // Inactivity
+  // useIdleTimer({
+  //   timeout: 10000, // 2 minutes
+  //   onIdle: () => {
+  //     setShowResetNotice(true);
+  //     console.log("idle");
+  //   },
+  //   promptBeforeIdle: 5000,
+  //   // debounce: 5000, // time in millisecond
+  //   onPrompt: () => {
+  //     setShowResetNotice(true);
+  //     console.log("prompt");
+  //   },
+  //   onActive: () => {
+  //     console.log("active");
+  //     setShowResetNotice(false);
+  //   },
+  //   onAction: () => {
+  //     console.log("action");
+  //     setShowResetNotice(false);
+  //   },
+  // });
+
   // Globe Properties
   // Custom Layer
   const globeColor = theme ? 0xffcbff : 0x1b0220;
-  const autoRotateSpeed = 0.1;
+  const autoRotateSpeed = 0.05;
   const transitionTime = 2000;
   const initialPointOfView = calculateFocus(alumni, alumniIndex, showcaseMode);
   const width = globeWidth;
@@ -517,6 +551,7 @@ function App() {
   return (
     <>
       {!q.notitle && <Loader globeReady={globeReady} theme={theme} />}
+      {/* {showResetNotice ? <ResetNotice /> : null} */}
       <Interface {...interfaceProps} />
       <Globe {...globeProps} />
     </>
