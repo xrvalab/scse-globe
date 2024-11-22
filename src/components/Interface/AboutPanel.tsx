@@ -31,7 +31,7 @@ const AboutPanel = () => (
       contributing content for the alumni database.
     </p>
     <p>
-      Source available: <strong>github.com/pbutcher/scse-globe-react-ts</strong>
+      Source available: <strong>github.com/pbutcher/scse-globe</strong>
     </p>
     <p>
       Created by: <strong>Dr Peter Butcher</strong> (XReality, Visualization,

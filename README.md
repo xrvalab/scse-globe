@@ -1,4 +1,4 @@
-# SCSE Globe React-TS
+# SCSE Globe
 
 Interactive Data Globe for Bangor University School of Computer Science and Engineering
 
