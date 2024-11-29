@@ -3,7 +3,7 @@ import { GlobeMethods } from "react-globe.gl";
 import * as THREE from "three";
 // import { useIdleTimer } from "react-idle-timer";
 import { CustomGlobe, Interface, Loader } from "./components";
-import { AlumniData, GlobeData, IRingData, Organisations } from "./types";
+import { AlumniData, GlobeData, RingData, Organisations } from "./types";
 import {
   alumniPath,
   organisationsPath,
@@ -103,7 +103,7 @@ function App() {
   const [pointsData, setPointsData] = useState<GlobeData[]>([]);
   const [arcsData, setArcsData] = useState<GlobeData[]>([]);
   const [htmlElementsData, setHtmlElementsData] = useState<GlobeData[]>([]);
-  const [ringsData, setRingsData] = useState<IRingData[]>([
+  const [ringsData, setRingsData] = useState<RingData[]>([
     { lat: alumni[0].lat, lng: alumni[0].lng },
   ]);
   const [showAboutPanel, setShowAboutPanel] = useState(false);

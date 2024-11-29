@@ -2,7 +2,7 @@ import { GlobeMethods } from "react-globe.gl";
 import AlumniData from "./AlumniData";
 import Organisations from "./Organisations";
 
-interface IInterface {
+interface InterfaceProps {
   globeRef: React.MutableRefObject<GlobeMethods | undefined>;
   alumni: AlumniData[];
   alumniIndex: number;
@@ -29,4 +29,4 @@ interface IInterface {
   setShowInformationPanel: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default IInterface;
+export default InterfaceProps;

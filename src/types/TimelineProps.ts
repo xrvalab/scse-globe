@@ -1,4 +1,4 @@
-interface ITimeline {
+interface TimelineProps {
   visible: boolean;
   theme: boolean;
   focusTime: number;
@@ -6,4 +6,4 @@ interface ITimeline {
   showcaseMode: boolean;
 }
 
-export default ITimeline;
+export default TimelineProps;

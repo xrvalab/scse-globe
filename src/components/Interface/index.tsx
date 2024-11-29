@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
-import { IInterface } from "../../types";
+import { InterfaceProps } from "../../types";
 import Logo from "./Logo";
 import InformationPanel from "./InformationPanel";
 import AlumniPanel from "./AlumniPanel";
@@ -48,7 +48,7 @@ const Interface = ({
   setShowAboutPanel,
   showInformationPanel,
   setShowInformationPanel,
-}: IInterface) => {
+}: InterfaceProps) => {
   const [controlsVisible, setControlsVisible] = useState(true);
 
   return (
