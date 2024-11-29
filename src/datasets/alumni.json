@@ -151,5 +151,27 @@
     "focusTime": 15000,
     "transitionTime": 2500,
     "avatar": "daniel-evans.png"
+  },
+  {
+    "name": "Yann Bussard",
+    "city": "Madrid",
+    "country": "Spain",
+    "organisation": "Dinycon Systems",
+    "degrees": [
+      "MEng Electronics Engineering (2001)",
+      "MPhil Information Systems (2007)"
+    ],
+    "jobTitle": "Managing Director",
+    "about": [
+      "I am currently the Managing Director of Dinycon Systems, an engineering and integration company that specialises in mobility solutions for smart cities. I am an executive director and run the day-to-day management of the business from the Madrid office.",
+      "I spent the first 13 years of my career in the UK working in software engineering and project management for the Industrial, Rail, and Aerospace industries before moving to Mexico in 2014. There I changed paths into sales and marketing, initially for the Oil & Gas industry and then for the wholesale distribution market of surveillance products. In 2017, whilst still in Mexico, I decided to start my own consultancy firm which I successfully ran up to 2021 when I decided to move back to Europe. I lead several departments, devising winning commercial strategies and managing customer contracts. One of those strategies is broadening our horizon into foreign markets and I dedicate some of my time expanding our network of partners in Latin America, Europe and the Middle East.",
+      "Sometimes we underestimate the importance of starting one's professional career from a good foundation, but it's absolutely true if only to give you the confidence to challenge yourself and keep pushing the boundaries. I consider myself privileged for having been taught by excellent academics such as Prof. Martin Taylor, Prof. Iestyn Pierce, Mr. Alwyn Owen and so many others in the school who were (and always will be) truly inspirational and a guiding light. I have nothing but gratitude for how welcoming and helpful all members of staff were. I had the best time of my life during at Bangor. "
+    ],
+    "lat": 40.419985,
+    "lng": -3.688795,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "yann-bussard.png"
   }
 ]

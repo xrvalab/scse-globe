@@ -1,4 +1,4 @@
-interface IAlumniData {
+interface AlumniData {
   id: number;
   name: string;
   city: string;
@@ -15,4 +15,4 @@ interface IAlumniData {
   avatar: string;
 }
 
-export default IAlumniData;
+export default AlumniData;

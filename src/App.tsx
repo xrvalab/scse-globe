@@ -2,8 +2,8 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { GlobeMethods } from "react-globe.gl";
 import * as THREE from "three";
 // import { useIdleTimer } from "react-idle-timer";
-import { Globe, Interface, Loader } from "./components";
-import { IAlumniData, IData, IRingData, IOrganisations } from "./types";
+import { CustomGlobe, Interface, Loader } from "./components";
+import { AlumniData, GlobeData, IRingData, Organisations } from "./types";
 import {
   alumniPath,
   organisationsPath,
@@ -93,16 +93,16 @@ function App() {
   const [showcaseMode, setShowcaseMode] = useState(false);
   const [globeOnlyMode, setGlobeOnlyMode] = useState(false);
   // const [markerIndex, setMarkerIndex] = useState(0);
-  const [alumni] = useState<IAlumniData[]>(
+  const [alumni] = useState<AlumniData[]>(
     alumniPath.map((el, id) => ({ ...el, id }))
   );
   const [markers] = useState(markersPath);
-  const [organisations] = useState<IOrganisations>(organisationsPath);
+  const [organisations] = useState<Organisations>(organisationsPath);
   const [alumniIndex, setAlumniIndex] = useState(0);
   const [backgroundColor] = useState("rgba(0,0,0,0)");
-  const [pointsData, setPointsData] = useState<IData[]>([]);
-  const [arcsData, setArcsData] = useState<IData[]>([]);
-  const [htmlElementsData, setHtmlElementsData] = useState<IData[]>([]);
+  const [pointsData, setPointsData] = useState<GlobeData[]>([]);
+  const [arcsData, setArcsData] = useState<GlobeData[]>([]);
+  const [htmlElementsData, setHtmlElementsData] = useState<GlobeData[]>([]);
   const [ringsData, setRingsData] = useState<IRingData[]>([
     { lat: alumni[0].lat, lng: alumni[0].lng },
   ]);
@@ -159,7 +159,7 @@ function App() {
   );
 
   const calculateFocus = (
-    alumni: IAlumniData[],
+    alumni: AlumniData[],
     alumniIndex: number,
     showcaseMode: boolean
   ) => {
@@ -553,7 +553,7 @@ function App() {
       {!q.notitle && <Loader globeReady={globeReady} theme={theme} />}
       {/* {showResetNotice ? <ResetNotice /> : null} */}
       <Interface {...interfaceProps} />
-      <Globe {...globeProps} />
+      <CustomGlobe {...globeProps} />
     </>
   );
 }

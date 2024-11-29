@@ -1,4 +1,4 @@
-interface IData {
+interface GlobeData {
   id: number;
   name: string;
   lat: number;
@@ -8,4 +8,4 @@ interface IData {
   transitionTime: number;
 }
 
-export default IData;
+export default GlobeData;

@@ -3,7 +3,7 @@ import Organisation from "./Organisation";
 import LocationPin from "./LocationPin";
 import Degrees from "./Degree";
 import About from "./About";
-import { IAlumniProfile } from "../../types";
+import { AlumniProfile } from "../../types";
 import styled, { keyframes } from "styled-components";
 
 const fadein = keyframes`
@@ -22,11 +22,7 @@ const FadeIn = styled.div<{ delay: string }>`
   animation-delay: ${({ delay }) => delay}s;
 `;
 
-const AlumniProfile = ({
-  alumni,
-  alumniIndex,
-  organisations,
-}: IAlumniProfile) => (
+const AlumniPanel = ({ alumni, alumniIndex, organisations }: AlumniProfile) => (
   <>
     <p className="alumni-profile">Alumni Profile</p>
     <FadeIn delay="0" key={`${alumniIndex}n`}>
@@ -78,4 +74,4 @@ const AlumniProfile = ({
   </>
 );
 
-export default AlumniProfile;
+export default AlumniPanel;

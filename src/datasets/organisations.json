@@ -30,5 +30,9 @@
   "North Wales Fire and Rescue Service": {
     "name": "North Wales Fire and Rescue Service",
     "icon": "nwfrs.png"
+  },
+  "Dinycon Systems": {
+    "name": "Dinycon Systems",
+    "icon": "dinycon.png"
   }
 }

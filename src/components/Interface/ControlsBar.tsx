@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { IControls, ITimeline } from "../../types";
+import { Controls, ITimeline } from "../../types";
 // import Timeline from "./Timeline";
 import Button from "./Button";
 import Timeline from "./Timeline";
@@ -35,7 +35,7 @@ const HideableControls = styled.div<{ controlsVisible: boolean }>`
     controlsVisible ? "all" : "none"};
 `;
 
-const Controls = function ({
+const ControlsBar = function ({
   globeRef,
   alumni,
   alumniIndex,
@@ -59,7 +59,7 @@ const Controls = function ({
   setShowInformationPanel,
   controlsVisible,
   setControlsVisible,
-}: IControls) {
+}: Controls) {
   const controlsRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const TimelineInstance = ({
@@ -325,4 +325,4 @@ const Controls = function ({
   );
 };
 
-export default Controls;
+export default ControlsBar;

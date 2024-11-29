@@ -1,14 +1,14 @@
 import { GlobeMethods } from "react-globe.gl";
-import IAlumniData from "./IAlumniData";
-import IOrganisations from "./IOrganisations";
+import AlumniData from "./AlumniData";
+import Organisations from "./Organisations";
 
 interface IInterface {
   globeRef: React.MutableRefObject<GlobeMethods | undefined>;
-  alumni: IAlumniData[];
+  alumni: AlumniData[];
   alumniIndex: number;
   setAlumniIndex: React.Dispatch<React.SetStateAction<number>>;
   query: URLSearchParams;
-  organisations: IOrganisations;
+  organisations: Organisations;
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
   autoPlay: boolean;

@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { default as GlobeGL } from "react-globe.gl";
-import { IGlobeProps } from "../../types";
+import { CustomGlobeProps } from "../../types";
 
-function Globe(props: IGlobeProps) {
+function CustomGlobe(props: CustomGlobeProps) {
   function onGlobeReady() {
     // FIXME: useEffect does not work, but setTimeout with a 0ms callback does.
     setTimeout(() => {
@@ -27,4 +27,4 @@ function Globe(props: IGlobeProps) {
   );
 }
 
-export default Globe;
+export default CustomGlobe;

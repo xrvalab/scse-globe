@@ -1,9 +1,9 @@
 import { GlobeMethods } from "react-globe.gl";
-import IAlumniData from "./IAlumniData";
+import AlumniData from "./AlumniData";
 
-interface IControls {
+interface Controls {
   globeRef: React.MutableRefObject<GlobeMethods | undefined>;
-  alumni: IAlumniData[];
+  alumni: AlumniData[];
   alumniIndex: number;
   setAlumniIndex: React.Dispatch<React.SetStateAction<number>>;
   query: URLSearchParams;
@@ -28,4 +28,4 @@ interface IControls {
   setControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default IControls;
+export default Controls;

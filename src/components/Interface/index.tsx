@@ -3,9 +3,9 @@ import styled, { css } from "styled-components";
 import { IInterface } from "../../types";
 import Logo from "./Logo";
 import InformationPanel from "./InformationPanel";
-import AlumniProfile from "./AlumniPanel";
+import AlumniPanel from "./AlumniPanel";
 import AboutPanel from "./AboutPanel";
-import Controls from "./Controls";
+import ControlsBar from "./ControlsBar";
 
 const InformationPanels = styled.main<{
   showcaseMode: boolean;
@@ -58,7 +58,7 @@ const Interface = ({
         globeOnlyMode={globeOnlyMode}
       >
         <InformationPanel show={showInformationPanel} theme={theme}>
-          <AlumniProfile
+          <AlumniPanel
             alumni={alumni}
             alumniIndex={alumniIndex}
             organisations={organisations}
@@ -69,7 +69,7 @@ const Interface = ({
         </InformationPanel>
         <Logo globeOnlyMode={globeOnlyMode} />
       </InformationPanels>
-      <Controls
+      <ControlsBar
         globeRef={globeRef}
         alumni={alumni}
         alumniIndex={alumniIndex}
