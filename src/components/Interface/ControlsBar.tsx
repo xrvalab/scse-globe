@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Controls, ITimeline } from "../../types";
+import { Controls, TimelineProps } from "../../types";
 // import Timeline from "./Timeline";
 import Button from "./Button";
 import Timeline from "./Timeline";
@@ -68,7 +68,7 @@ const ControlsBar = function ({
     focusTime,
     globeOnlyMode,
     showcaseMode,
-  }: ITimeline) => (
+  }: TimelineProps) => (
     <Timeline
       theme={theme}
       visible={visible}
