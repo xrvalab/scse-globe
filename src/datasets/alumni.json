@@ -173,5 +173,152 @@
     "focusTime": 30000,
     "transitionTime": 2500,
     "avatar": "yann-bussard.png"
+  },
+  {
+    "name": "Rhys Davies",
+    "city": "Tabuk",
+    "country": "Saudi Arabia",
+    "organisation": "NEOM",
+    "degrees": [
+      "BEng Electronics Engineering (1990)",
+      "MEng Electronics Engineering (1991)"
+    ],
+    "jobTitle": "Asset Management Lead for THE LINE",
+    "about": [
+      "My role on the world's largest project, NEOM has many facets but the 3 main ones are: 1. Influencing the design of THE LINE so it is operable and maintainable; 2. Designing the information model and information requirements so that the future operator/maintainer has what they need to be effective; 3. developing early lifecycle plans so we are ready to operate when we take over THE LINE",
+      "In the late 1980s it was still a relatively small university of circa 2-3000 students. I really enjoyed the collegiate nature of the university and the town. I also spent many weekends enjoying the mountains, rivers and coasts of North Wales.",
+      "A piece of career advice I didn't receive until too late in my career is to grow your network wide and deep. It doesn't matter which disciplines or organizations people are from, all connections are good connections. Just do it!"
+    ],
+    "lat": 28.383129,
+    "lng": 36.568966,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "rhys-davies.png"
+  },
+  {
+    "name": "John Davey",
+    "city": "Ottawa",
+    "country": "Canada",
+    "organisation": "The Standards Council of Canada",
+    "degrees": ["BSc Electronics Engineering (1987)"],
+    "jobTitle": "Program Manager and Assessor",
+    "about": [
+      "I conduct accreditation assessments of certification and inspection bodies to ISO standards. My areas of expertise are management systems (ISO/IEC 17021-1 - ISO 9001, 13485, 27001, 27701, 42001), product certification (ISO/IEC 17065 - electrical, IT), inspection (ISO/IEC 17020 - electronic and medical electronics).",
+      "My highlight of my time in Bangor was the great outdoors! If I had any advice for current or prospective students it would be to take your time, enjoy Bangor!"
+    ],
+    "lat": 45.334753,
+    "lng": -75.701724,
+    "altitude": 0.55,
+    "focusTime": 20000,
+    "transitionTime": 2500,
+    "avatar": "john-davey.png"
+  },
+  {
+    "name": "Jonathan Hannay",
+    "city": "Pittsburgh",
+    "country": "USA",
+    "organisation": "Naval Nuclear Laboratory",
+    "degrees": [
+      "MEng Electronic Engineering (1997)",
+      "PhD Computational Physics (2002)"
+    ],
+    "jobTitle": "Principal Scientific Computing Engineer",
+    "about": [
+      "In my role, I specialize in fuel performance modeling and nuclear core materials engineering, where I focus on developing and analyzing the materials used within nuclear reactors to ensure their safety, efficiency, and longevity. I employ advanced computational methods and engage in scientific software development to create sophisticated simulation tools that predict how these materials behave under various operational conditions. Utilizing high-performance computing, I conduct complex numerical analyses and optimization processes to enhance reactor performance and extend the lifespan of core components.",
+      "My highlights of Bangor include: St Mary's bar, Friddoedd bar, Student Union, Castle, The Globe, Belle Vue, Greek Taverna, Fat Cat, White Lion, The Skerries, and Octagon. The beautiful location. Friendly people.",
+      "Remember, professors are people too! They've been in your shoes and understand the challenges of student life. Building a good rapport can lead to mentorship opportunities, valuable advice, and maybe even some hilarious stories to share at reunions.  Stay curious, stay connected, and learn by doing!",
+      "While navigating student life with humour and resilience is essential, never forget that Bangor has been diligently preparing you to step into industry with the skills, confidence, and ability to make a meaningful impact. Embrace your inner superhero and take on the world with the solid foundation you've built!"
+    ],
+    "lat": 40.442626,
+    "lng": -79.980657,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "jonathan-hannay.png"
+  },
+  {
+    "name": "Colin Dalton",
+    "city": "Calgary",
+    "country": "Canada",
+    "organisation": "University of Calgary",
+    "degrees": [
+      "BEng (Hons) Electronic Engineering (1994)",
+      "MSc Electronic Engineering (1998)",
+      "PhD Electronic Engineering (2002)"
+    ],
+    "jobTitle": "Associate Head, Dept of Electrical and Software Engineering",
+    "about": [
+      "I am an Associate Professor performing biomedical engineering research. Associate Dept Head of Graduate studies, responsible for ~230 MSc and PhD thesis students and ~250 M.Eng students.",
+      "Performing research in my final year led me into me to return for an MSc and then a PhD. Research was not why I did my undergraduate degree and it changed my direction.",
+      "My advice to current and prospective students is to take risks and get outside your comfort zone, try new things, get involved in groups."
+    ],
+    "lat": 51.046421,
+    "lng": -114.069526,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "colin-dalton.png"
+  },
+  {
+    "name": "Abdullah Almahous",
+    "city": "Kuwait City",
+    "country": "Kuwait",
+    "organisation": "Warba Bank",
+    "degrees": [
+      "BEng Computing Systems Engineering (2017)",
+      "MSc Electronic Engineering (2018)"
+    ],
+    "jobTitle": "Manager Strategic Execution",
+    "about": [
+      "Communicate the corporate strategy, targets, and initiatives across all channels, while collaborating with HR to incorporate strategy management education into training programs. Oversee cross-unit strategic initiatives, ensuring they receive the necessary resources and attention, while closely tracking their progress. Support the corporate IT team with key projects and drive digital transformation across the organization to enhance efficiency and innovation.",
+      "Studying at Bangor University was a transformative journey filled with growth, discovery, and unforgettable memories. From late-night study sessions to exploring the stunning Welsh landscapes, student life was both challenging and rewarding. I was fortunate to co-found a society for Kuwaiti students, creating a vibrant space for cultural exchange, support, and friendship.",
+      "Seize every opportunity to learn, grow, and connect. Your time as a student is a unique chapter to shape your future and discover your potential. Build relationships, take on challenges with confidence, and trust that your hard work and determination will lead you to success.",
+      "Thanks Bangor University for providing an environment that supported my growth and learning. To all students, enjoy your time here."
+    ],
+    "lat": 29.375822,
+    "lng": 47.975833,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "abdullah-almahous.png"
+  },
+  {
+    "name": "Jason Meredith",
+    "city": "Zurich",
+    "country": "Switzerland",
+    "organisation": "Tecan Switzerland AG",
+    "degrees": ["BSc Computer Systems Engineering (1989)"],
+    "jobTitle": "Head of Software Product Management",
+    "about": [
+      "I manage a team of software product managers who in turn are responsible for the software that controls our lab automation and clinical diagnostic products. We work closely with our customers, software development and quality assurance teams to bring leading software solutions to market",
+      "My highlight of my time in Bangor include managing to get a good degree and having the time of my life climbing and partying. Built a strong network of friends in North Wales.",
+      "I had no idea how much hard work engineering would be, but also how rewarding it is to work with super intelligent people from all around the world."
+    ],
+    "lat": 47.383835,
+    "lng": 8.533907,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "jason-meredith.png"
+  },
+  {
+    "name": "Olivia Kavanagh",
+    "city": "Greater Manchester",
+    "country": "United Kingdom",
+    "organisation": "Xaverian College",
+    "degrees": ["BSc Product Design (2018)"],
+    "jobTitle": "Marketing and Schools Liaison Manager",
+    "about": [
+      "I am responsible for designing and implementing innovative strategies to support student recruitment. Day to day I oversee all marketing activities including website development, social media and press, graphic design, events and much more.",
+      "Meeting some lifelong friends was the ultimate highlight of my time in Bangor, however work placements and the Design Conference were incredibly insightful and impactful. Having the opportunity to engage with other designers and listen to their career journey was always really inspiring, and I secured jobs from networking!",
+      "Work hard and say yes to every experience!"
+    ],
+    "lat": 53.47874,
+    "lng": -2.243662,
+    "altitude": 0.55,
+    "focusTime": 30000,
+    "transitionTime": 2500,
+    "avatar": "olivia-kavanagh.png"
   }
 ]

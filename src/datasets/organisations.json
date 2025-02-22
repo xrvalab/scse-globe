@@ -34,5 +34,33 @@
   "Dinycon Systems": {
     "name": "Dinycon Systems",
     "icon": "dinycon.png"
+  },
+  "NEOM": {
+    "name": "NEOM",
+    "icon": "neom.png"
+  },
+  "The Standards Council of Canada": {
+    "name": "The Standards Council of Canada",
+    "icon": "scc.png"
+  },
+  "Naval Nuclear Laboratory": {
+    "name": "Naval Nuclear Laboratory",
+    "icon": "nno.png"
+  },
+  "University of Calgary": {
+    "name": "University of Calgary",
+    "icon": "ucalgary.png"
+  },
+  "Warba Bank": {
+    "name": "Warba Bank",
+    "icon": "warbabank.png"
+  },
+  "Tecan Switzerland AG": {
+    "name": "Tacan Switzerland AG",
+    "icon": "tecan.png"
+  },
+  "Xaverian College": {
+    "name": "Xaverian College",
+    "icon": "xaveriancollege.png"
   }
 }
